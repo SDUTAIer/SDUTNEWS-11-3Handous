@@ -97,3 +97,5 @@ end:动画在最后发生变化(类似加了transition-delay)
 4. 修改伪元素的`top`和`left`属性,并添加X或Y轴方向上的偏移量，实现3D盒子封闭效果，需要结合`transition-origin`
 5. 多个立体盒子的需要对小div设置`z-index`属性，突出上下层关系
 6. 对小div设置`:hover`伪类，
+
+>yes
