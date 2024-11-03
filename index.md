@@ -41,13 +41,13 @@ bezier曲线(函数)在后续的animation动画中也有应用
 步进帧过度看起来的效果是一帧一帧动的，相较于平滑过度帧率更低，多用于配合`animation`实现打印动画，应用范围较窄
 
 ```CSS
-transition-timing-function: step(Frame rate, start/end);
+transition-timing-function: step(Frame rate)|step-start|step-end;
 
 Frame rate:帧率，动画要在多少帧完成
 
-start:动画从一开始就开始发生变化
+step-start:动画从一开始就开始发生变化
 
-end:动画在最后发生变化(类似加了transition-delay)
+step-end:动画在最后发生变化(类似加了transition-delay)
 ```
 
 
@@ -58,12 +58,15 @@ end:动画在最后发生变化(类似加了transition-delay)
 ### transform属性(控制元素在二维平面或三维空间内变换)
 
 今天我们重点介绍二维变换
-```
+```css
 transform: ...;
+
+//设置变换的参考点，主要应用在旋转，及rotate上
+transform-origin: top|left|bottom|right|...;
 ```
 `...`里面是一个函数，控制你想实现怎样的变换，有这么几个函数
-1. #### translate(x, y)
-> 这个函数实现的是在二维平面的`位移`变换，x和y是延x轴正方向和y轴正方向唯一的距离
+1. ### translate(x, y)
+> 这个函数实现的是在二维平面的`位移`变换，x和y是延x轴正方向和y轴正方向位移的距离
 ```css
 transform: translate(20px, 30px);
 
@@ -72,7 +75,7 @@ transform: translateX(-20px);
 transform: translateY(30px);
 ```
 
-2. rotate(angle)
+2. ### rotate(angle)
 > 二维平面的`旋转`，angle参数是旋转角度
 
 ```css
@@ -80,7 +83,7 @@ transform: rotate(45deg);
 
 transform: rotate(-90deg);
 ```
-3. scale(...)
+3. ### scale(...)
 > 二维`缩放`
 ```css
 transform: scale(1); //大小不变
@@ -94,18 +97,27 @@ transform: scaleX(3.2);
 transform: scaleY(1.1);
 ```
 
-4. skew(angleX, angleY)
+4. ### skew(angleX, angleY)
 > 下面重点介绍
 
 ### 伪元素`::before`和`::after`
 
-1. `::before`
+在以前的前端开发中，伪元素多用于添加文本注释，但现在，伪元素的应用十分广泛
+
+```
+css选择器::伪元素{
+    content: ''; //必须要写，可以是空字符串。如果不写的话类似于display: none;也就是不显示
+    ... //css属性
+}
+```
+
+1. ### `::before`
 >"::before" 伪元素可以在元素的内容前面插入新内容
 
-1. `::after`
+2. ### `::after`
 >":after" 伪元素可以在元素的内容之后插入新内容
 
-伪元素和普通的标签一样，可以设置CSS样式，同样定位也是可以生效在伪元素上的，比如
+伪元素和`普通的标签差不多`，可以设置CSS样式，同样定位也是可以生效在伪元素上的，比如
 
 ![](./img/weilei.png)
 
@@ -160,7 +172,7 @@ animation: name duration timing-function delay iteration-count direction fill-mo
 
 参数有点多，但是很多时候不需要全写，我们来一个一个看
 
-1. #### name(指定要绑定到选择器的关键帧的名称)
+1. ### name(指定要绑定到选择器的关键帧的名称)
 
 #### 什么是关键帧？
 ```
@@ -210,13 +222,13 @@ animation: name duration timing-function delay iteration-count direction fill-mo
 注意这里用的是(0,100)是个开区间，意味着你在0%和100%之间你可以写0.11%,也可以写99.9999%
 
 
-2. #### duration(动画指定需要多少秒或毫秒完成)
+2. ### duration(动画指定需要多少秒或毫秒完成)
 
-3. #### timing-function	(设置动画将如何完成一个周期)
+3. ### timing-function	(设置动画将如何完成一个周期)
 
-4. #### delay (设置动画在启动前的延迟间隔)
+4. ### delay (设置动画在启动前的延迟间隔)
 
-5. #### iteration-count	(定义动画的播放次数)
+5. ### iteration-count	(定义动画的播放次数)
 ```css
 animation-iteration-count: value;
 
@@ -226,7 +238,7 @@ n 动画播放n次
 
 infinite 无限次播放
 ```
-6. #### direction (指定是否应该轮流反向播放动画)
+6. ### direction (指定是否应该轮流反向播放动画)
 ```css
 animation-direction: normal|reverse|alternate|alternate-reverse|initial|inherit;
 
@@ -238,9 +250,9 @@ alternate:奇数次{1, 3, 5, }正向播放，偶数次{2, 4, 6, }反向播放
 
 alternate-reverse:与上面相反
 ```
-7. #### fill-mode (规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式)
+7. ### fill-mode (规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式)
 
-8. #### play-state (指定动画是否正在运行或已暂停)
+8. ### play-state (指定动画是否正在运行或已暂停)
 ```css
 animation-play-state: paused|running;
 
