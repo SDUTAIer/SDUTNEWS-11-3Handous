@@ -1,4 +1,4 @@
-## SDUTNews-立体网页设计及CSS动画进阶
+## SDUTNEWS-CSS进阶：立体网页元素设计&animation动画
 ![](./img/CSS.gif)
 ## 上回说到
 当我们使用`:hover`时，可以设置鼠标悬停样式
