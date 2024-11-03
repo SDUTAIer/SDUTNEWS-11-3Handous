@@ -142,7 +142,7 @@ transform: scaleY(1.1);
 1. 一个大div,设置X或Y轴偏移量，里面嵌套n个小div（n的个数看你要堆放几个立体盒子，如果只有一个立体图形，就嵌套一个div即可）
 2. 对小div设置伪元素`::before`和`::after`
 3. 小div相对定位，伪元素绝对定位
-4. 修改伪元素的`top`和`left`属性,并添加X或Y轴方向上的偏移量，实现3D盒子封闭效果，需要结合`transition-origin`
+4. 修改伪元素的`top`和`left`属性,并添加X或Y轴方向上的偏移量，实现3D盒子封闭效果，需要结合`transform-origin`
 5. 多个立体盒子的需要对小div设置`z-index`属性，突出上下层关系
 6. 对小div设置`:hover`伪类，伪类里面修改`transform:translate();`属性实现位移效果
 
@@ -152,11 +152,98 @@ transform: scaleY(1.1);
 
 #### 那我们如何设置动画呢？
 
-使用CSS的`keyframes`规则
+我们要在要实现动画效果的元素中设置`animation`属性
+
 ```css
-@keyframes animation-name{
+animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+```
+
+参数有点多，但是很多时候不需要全写，我们来一个一个看
+
+1. #### name(指定要绑定到选择器的关键帧的名称)
+
+#### 什么是关键帧？
+```
+关键帧就是当我们的动画进行到这一帧时的css样式
+
+我们从一个关键帧到另一个关键帧之间的CSS样式改变，浏览器会自动帮我们完成
+```
+
+#### `name`我们使用CSS的@keyframes规则进行声明
+
+```
+@keyframes name{
     ...
 }
 ```
 
-`...`里面是控制动画实现效果的代码
+#### 如何设置关键帧？
+```css
+//使用from...to...关键字
+@keyframes name{
+    from{
+        css属性
+    }
+    to{
+        css属性
+    }
+}
+
+//使用%控制动画进程
+@keyframes name{
+    0%{
+        css属性
+    }
+    50%{
+        css属性
+    }
+    100%{
+        css属性
+    }
+}
+```
+
+我们最常用的是第二种样式，因为from...to...关键字，就代表着关键帧从0%到100%
+
+这里的0%和100%你可以理解为动画的进程，0%意味着动画初始状态，100%意味着动画结束状态，中间可以设置(0,100)的任意数字控制关键帧，来实现各种复杂的动画效果
+
+注意这里用的是(0,100)是个开区间，意味着你在0%和100%之间你可以写0.11%,也可以写99.9999%
+
+
+2. #### duration(动画指定需要多少秒或毫秒完成)
+
+3. #### timing-function	(设置动画将如何完成一个周期)
+
+4. #### delay (设置动画在启动前的延迟间隔)
+
+5. #### iteration-count	(定义动画的播放次数)
+```css
+animation-iteration-count: value;
+
+value:
+
+n 动画播放n次
+
+infinite 无限次播放
+```
+6. #### direction (指定是否应该轮流反向播放动画)
+```css
+animation-direction: normal|reverse|alternate|alternate-reverse|initial|inherit;
+
+normal:正向播放
+
+reverse：反向播放
+
+alternate:奇数次{1, 3, 5, }正向播放，偶数次{2, 4, 6, }反向播放
+
+alternate-reverse:与上面相反
+```
+7. #### fill-mode (规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式)
+
+8. #### play-state (指定动画是否正在运行或已暂停)
+```css
+animation-play-state: paused|running;
+
+paused:停止
+running：进行
+```
